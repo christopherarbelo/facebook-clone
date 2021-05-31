@@ -1,0 +1,13 @@
+<h2>Posts</h2>
+
+<section id="posts">
+<% if @posts.any? %>
+  <% @posts.each do |post| %>
+  <section class="post">
+    <p><%= post.body %></p>
+  </section>
+  <% end %>
+<% else %>
+  <p>There are no posts :(</p>
+<% end %>
+</section>

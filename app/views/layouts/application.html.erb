@@ -11,6 +11,16 @@
   </head>
 
   <body>
+    <nav id="navigation-bar">
+      <h1>Facebook</h1>
+      <ul>
+        <li><%= link_to 'Home', root_path %></li>
+        <li>Messages</li>
+      </ul>
+    </nav>
+    <% flash.each do |name, message| %>
+      <%= content_tag :section, message, class: name %>
+    <% end %>
     <%= yield %>
   </body>
 </html>
