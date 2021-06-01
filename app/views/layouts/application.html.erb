@@ -12,14 +12,18 @@
 
   <body>
     <nav id="navigation-bar">
-      <h1>Facebook</h1>
+      <h1 id="logo"><%= link_to 'Facebook', root_path %></h1>
       <ul>
-        <li><%= link_to 'Home', root_path %></li>
-        <li>Messages</li>
+        <% if user_signed_in? %>
+        <li><%= current_user.name %></li>
+        <li><%= link_to 'Messages', root_path %></li>
+        <li><%= link_to 'Notifications', root_path %></li>
+        <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
+        <% end %>
       </ul>
     </nav>
     <% flash.each do |name, message| %>
-      <%= content_tag :section, message, class: name %>
+      <%= content_tag :section, message, class: "#{name} flash" %>
     <% end %>
     <%= yield %>
   </body>

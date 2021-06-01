@@ -22,6 +22,8 @@ html {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background:rgb(46, 46, 46);
+  padding: 10px;
 }
 
 #navigation-bar ul {
@@ -33,6 +35,15 @@ html {
   padding-right: 10px;
 }
 
+#navigation-bar a, #navigation-bar li {
+  color: white;
+  text-decoration: none;
+}
+
+#navigation-bar a:hover {
+  text-decoration: underline;
+}
+
 h1 {
   font-weight: 900;
   font-size: 200%;
@@ -41,4 +52,26 @@ h1 {
 h2 {
   font-weight: 800;
   font-size: 175%;
+}
+
+h3 {
+  font-weight: 700;
+  font-size: 150%;
+}
+
+section.flash {
+  text-align: center;
+  padding: 20px;
+}
+
+section.flash.alert {
+  background-color: red;
+}
+
+section.flash.notice {
+  background-color: rgb(87, 255, 115);
+}
+
+section.flash.error {
+  background-color: red;
 }
