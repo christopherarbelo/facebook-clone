@@ -5,6 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
          
   has_many :posts
+  has_many :friendships
+  has_many :friends, through: :friendships
 
   validates :name, presence: true, length: { in: 2..30 }
   validates_associated :posts
