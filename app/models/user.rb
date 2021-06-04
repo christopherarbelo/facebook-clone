@@ -15,12 +15,35 @@ class User < ApplicationRecord
     friends_ids += Relationship.where(user_two_id: id, status: 2).pluck(:user_one_id)
     User.where(id: friends_ids)
   end
+  
+  def friend_requests
+    friends_ids = Relationship.where(user_one_id: id, status: 0).where.not(action_user_id: id).pluck(:user_two_id)
+    friends_ids += Relationship.where(user_two_id: id, status: 0).where.not(action_user_id: id).pluck(:user_one_id)
+    User.where(id: friends_ids)
+  end
 
-  def add_friend(friend)
-    if id < friend.id
-      relationships.create(user_two_id: friend.id, status: 2, action_user_id: id)
-    else
-      relationships.create(user_one_id: friend.id, status: 2, action_user_id: id)
+  def change_relationship(other_user, status)
+    user_one, user_two = ordered_users(other_user)
+    users_relationship = Relationship.find_by(user_one_id: user_one, user_two_id: user_two)
+    if users_relationship
+      users_relationship.update(status: status, action_user_id: id)
+    else    
+      Relationship.create(user_one_id: user_one, user_two_id: user_two, status: status, action_user_id: id)
     end
+  end
+
+  def relationship(other_user)
+    user_one, user_two = ordered_users(other_user)
+    Relationship.find_by(user_one_id: user_one, user_two_id: user_two)
+  end
+
+  def friends?(other_user)
+    relationship(other_user).status == 2
+  end
+
+  private
+
+  def ordered_users(other_user)
+    id < other_user.id ? [id, other_user.id] : [other_user.id, id]
   end
 end

@@ -1,13 +1,19 @@
-<section id="posts">
-  <%= render partial: "post-form", locals: { post: @post } %>
-  
-  <section id="post-feed">
-  <% if @posts.any? %>
-    <% @posts.each do |post| %>
-    <%= render partial: 'post', locals: { post: post } %>
-    <% end %>
-  <% else %>
-    <p>There are no posts :(</p>
-  <% end %>
+<main>
+  <section id="profile">
+    <p><%= current_user.name %></p>  
   </section>
-</section>
+  
+  <section id="posts">
+    <%= render partial: "post-form", locals: { post: @post } %>
+    
+    <section id="post-feed">
+    <% if @posts.any? %>
+      <% @posts.each do |post| %>
+      <%= render partial: 'post', locals: { post: post } %>
+      <% end %>
+    <% else %>
+      <p>There are no posts :(</p>
+    <% end %>
+    </section>
+  </section>
+</main>

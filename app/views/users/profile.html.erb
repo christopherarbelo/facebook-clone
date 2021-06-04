@@ -1,0 +1,20 @@
+<main>
+<section>
+  <h2><%= @user.name %></h2>
+  <section id="friend-button">
+    <% if @not_current_user_profile %>
+      <% if !@user_relationship || @user_relationship.status == 1 %>
+        <%= link_to 'Send friend request', send_friend_request_path(@user), method: :post %>
+      <% elsif @user_relationship.status == 0 && @user_action %>
+        <p>Pending invite</p>
+        <%= link_to 'Cancel friend request', cancel_friend_request_path(@user), method: :post %>
+      <% elsif @user_relationship.status == 0 && !@user_action %>
+        <%= link_to 'Accept friend request', accept_friend_request_path(@user), method: :post %>
+      <% elsif @user_relationship.status == 2 %>
+        <p>You are friends</p>
+        <%= link_to 'Remove friend', remove_friend_path(@user), method: :delete %>
+      <% end %>
+    <% end %>
+  </section>
+</section>
+</main>

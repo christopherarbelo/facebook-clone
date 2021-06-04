@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
+  before_action :is_owner, only: [:edit, :update, :destroy]
   
   def index
     @posts = Post.for_user(current_user).lastest
@@ -49,5 +50,14 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:body)
+  end
+
+  def is_owner
+    @post = Post.find(params[:id])
+    unless @post.belongs_to_user?(current_user)
+      flash[:error] = "You don't own that resource!"
+
+      redirect_to root_path
+    end
   end
 end
