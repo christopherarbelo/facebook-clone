@@ -6,6 +6,7 @@ class User < ApplicationRecord
          
   has_many :posts
   has_many :relationships, foreign_key: 'user_one_id'
+  has_many :likes, through: :posts, as: :likable
 
   validates :name, presence: true, length: { in: 2..30 }
   validates_associated :posts, :relationships
