@@ -3,7 +3,7 @@ class PostsController < ApplicationController
   before_action :is_owner, only: [:edit, :update, :destroy]
   
   def index
-    @posts = Post.for_user(current_user).lastest
+    @posts = Post.includes(comments: [:user]).for_user(current_user)
     @post = current_user.posts.build
   end
 

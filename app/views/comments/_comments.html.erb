@@ -1,0 +1,15 @@
+<% post.comments.each do |comment| %>
+<% if comment.valid? %>
+  <section class="comment">
+    <header class="comment-header">
+      <section class="comment-name">
+      <%= comment.user.name %>
+      </section>
+      <section class="comment-date">
+      <%= comment.created_at.strftime('%m-%d-%Y %l:%M%P') %>
+      </section>
+    </header>
+    <%= comment.message %>
+  </section>
+<% end %>
+<% end %>

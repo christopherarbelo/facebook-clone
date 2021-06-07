@@ -1,0 +1,5 @@
+<%= form_with model: [post, post.comments.new] do |form| %>
+  <%= form.label :message, 'Comment' %>
+  <%= form.text_field :message %>
+  <%= form.submit 'Submit' %>
+<% end %>

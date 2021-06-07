@@ -4,13 +4,18 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
          
+  # associations
   has_many :posts
+  has_many :comments
   has_many :relationships, foreign_key: 'user_one_id'
-  has_many :likes, through: :posts, as: :likable
+  has_many :liked_posts, through: :posts, as: :likable
+  has_many :liked_comments, through: :comments, as: :likable
 
+  # validations
   validates :name, presence: true, length: { in: 2..30 }
   validates_associated :posts, :relationships
 
+  # scopes / helpers
   def friends
     friends_ids = Relationship.where(user_one_id: id, status: 2).pluck(:user_two_id)
     friends_ids += Relationship.where(user_two_id: id, status: 2).pluck(:user_one_id)

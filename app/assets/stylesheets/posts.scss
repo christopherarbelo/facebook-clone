@@ -34,3 +34,12 @@
 .text-area {
   resize: none;
 }
+
+section.comment {
+  border: 3px double black;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+}

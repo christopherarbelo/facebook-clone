@@ -14,4 +14,13 @@
   <% end %>
   <span><%= link_to pluralize(post.likes.count, 'like'), post_likes_path(post) %>.</span>
   </section>
+
+  <section class="comment-section">
+    <section class="create-comment">
+      <%= render partial: 'comments/create_comment', locals: { post: post }%>
+    </section>
+    <section class="comments">
+      <%= render partial: 'comments/comments', locals: { post: post } %>
+    </section>
+  </section>
 </section>
