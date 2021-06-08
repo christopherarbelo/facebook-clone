@@ -2,12 +2,12 @@ class LikesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @likes = Like.likes(params[:post_id])
+    @likes = Like.likes(params[:likable_id], params[:likable_type])
   end
 
   def create
-    @liked_post = Like.new(user_id: current_user.id, likable_id: params[:post_id], likable_type: 'Post')
-    if @liked_post.save
+    @likable_content = Like.new(likes_params)
+    if @likable_content.save
       redirect_to root_path
     else
       flash[:error] = 'Something went wrong. Like didn\'t process'
@@ -16,13 +16,21 @@ class LikesController < ApplicationController
   end
 
   def destroy
-    @liked_post = Like.find_by(user_id: params[:id], likable_id: params[:post_id], likable_type: 'Post')
-    if @liked_post
-      @liked_post.destroy
+    @likable_content = Like.find_by(likes_params)
+    if @likable_content
+      @likable_content.destroy
       redirect_to root_path
     else
       flash[:error] = 'Something went wrong. Dislike didn\'t process'
       redirect_to root_path
     end
+  end
+
+  private
+
+  def likes_params
+    params_hash = params.permit(:likable_type, :likable_id)
+    params_hash[:user_id] = current_user.id
+    params_hash
   end
 end

@@ -7,12 +7,7 @@
     <%= link_to 'Edit', edit_post_path(post) %>
   <% end %>
   <section class="likes">
-  <% unless post.liked?(current_user) %>
-  <%= link_to 'Like', post_likes_path(post), method: :post %>
-  <% else %>
-  <%= link_to 'Unlike', post_like_path(post, current_user), method: :delete %>
-  <% end %>
-  <span><%= link_to pluralize(post.likes.count, 'like'), post_likes_path(post) %>.</span>
+  <%= render partial: 'likes/like', locals: { post: post, comment: false } %>
   </section>
 
   <section class="comment-section">

@@ -10,6 +10,9 @@
       </section>
     </header>
     <%= comment.message %>
+    <section class="comment-likes">
+      <%= render partial: 'likes/like', locals: { comment: comment }%>
+    </section>
   </section>
 <% end %>
 <% end %>

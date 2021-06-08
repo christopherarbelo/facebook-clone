@@ -4,5 +4,5 @@ class Like < ApplicationRecord
 
   validates :user_id, uniqueness: { scope: [:likable_id, :likable_type] }
 
-  scope :likes, ->(post_id) { includes(:user).where(likable_id: post_id) }
+  scope :likes, ->(likable_id, likable_type) { includes(:user).where(likable_id: likable_id, likable_type: likable_type) }
 end

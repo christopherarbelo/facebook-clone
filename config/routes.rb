@@ -6,9 +6,12 @@ Rails.application.routes.draw do
   # likes controller
   devise_for :users
   resources :posts do
-    resources :likes, only: [:create, :destroy, :index]
     resources :comments, only: [:create, :destroy]
   end
+
+  get 'likes/:likable_type/:likable_id', to: 'likes#index', as: :likes
+  post 'likes/:likable_type/:likable_id/create', to: 'likes#create', as: :like
+  delete 'likes/:likable_type/:likable_id/destroy', to: 'likes#destroy', as: :unlike
 
   # users controller
   get 'profile', to: 'users#profile'

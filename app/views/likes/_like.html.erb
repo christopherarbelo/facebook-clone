@@ -1,0 +1,15 @@
+<% unless comment %>
+  <% unless post.liked?(current_user) %>
+  <%= link_to 'Like', like_path('Post', post), method: :post %>
+  <% else %>
+  <%= link_to 'Unlike', unlike_path('Post', post), method: :delete %>
+  <% end %>
+  <span><%= link_to pluralize(post.likes.count, 'like'), likes_path('Post', post) %>.</span>
+<% else %>
+  <% unless comment.liked?(current_user) %>
+  <%= link_to 'Like', like_path('Comment', comment), method: :post %>
+  <% else %>
+  <%= link_to 'Unlike', unlike_path('Comment', comment), method: :delete %>
+  <% end %>
+  <span><%= link_to pluralize(comment.likes.count, 'like'), likes_path('Comment', comment) %>.</span>
+<% end %>

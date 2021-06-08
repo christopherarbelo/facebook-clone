@@ -6,4 +6,9 @@ class Comment < ApplicationRecord
 
   # validations
   validates :post_id, :user_id, :message, presence: true
+
+  # scopes / helpers
+  def liked?(current_user)
+    self.likes.where(user_id: current_user.id).any?
+  end
 end
