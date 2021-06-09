@@ -1,10 +1,10 @@
-<main>
-  <section id="profile">
-    <p><%= current_user.name %></p>  
+<main id="main-content">
+  <section id="profile-card">
+    <%= render partial: 'profile-card' %>
   </section>
   
   <section id="posts">
-    <%= render partial: "post-form", locals: { post: @post } %>
+    <%= render partial: 'post-form', locals: { post: @post } %>
     
     <section id="post-feed">
     <% if @posts.any? %>

@@ -2,12 +2,34 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
+#main-content {
+  display: flex;
+  align-items: flex-start;
+}
+
 #posts {
   display: flex;
   flex-direction: column;
   width: 60%;
   align-items: center;
-  margin: 20px auto 0 auto;
+  margin: 0 auto;
+  padding-top: 20px;
+}
+
+#profile-card {
+  padding: 20px 10px;
+  background: white;
+  border: 1px solid black;
+}
+
+#profile-card .profile-basic {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.profile-basic p {
+  padding-left: 10px;
 }
 
 #post-feed {
