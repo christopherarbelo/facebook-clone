@@ -4,8 +4,8 @@ class Post < ApplicationRecord
   
   # associations
   belongs_to :user
-  has_many :likes, as: :likable
-  has_many :comments
+  has_many :likes, as: :likable, dependent: :destroy
+  has_many :comments, dependent: :destroy
   
   # scopes / helpers
   scope :latest, -> { order(created_at: :desc) }

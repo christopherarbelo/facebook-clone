@@ -7,7 +7,7 @@ class User < ApplicationRecord
   # associations
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
-  has_many :relationships, foreign_key: 'user_one_id', dependent: :destroy
+  has_many :likes, dependent: :destroy
   has_many :liked_posts, -> { where(likable_type: 'Post') }, class_name: 'Like'
   has_many :liked_comments, -> { where(likable_type: 'Comment') }, class_name: 'Like'
   has_one :profile, dependent: :destroy
@@ -18,8 +18,13 @@ class User < ApplicationRecord
 
   # callbacks
   after_create_commit :make_profile
+  before_destroy :destroy_relationships
 
   # scopes / helpers
+  def relationships
+    Relationship.where(user_one_id: id).or(Relationship.where(user_two_id: id))
+  end
+  
   def friends
     friends_ids = Relationship.where(user_one_id: id, status: 2).pluck(:user_two_id)
     friends_ids += Relationship.where(user_two_id: id, status: 2).pluck(:user_one_id)
@@ -59,5 +64,9 @@ class User < ApplicationRecord
 
   def make_profile
     self.create_profile
+  end
+
+  def destroy_relationships
+    relationships.destroy_all
   end
 end
