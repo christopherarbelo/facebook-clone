@@ -1,19 +1,32 @@
 <section class="post">
-  <h3 class="name"><%= link_to post.user.name, current_user == post.user ? profile_path : profiles_path(id: post.user) %></h3>
-  <hr>
-  <p class="body"><%= post.body %></p>
-  <%= link_to post.created_at.strftime('%m-%d-%Y %l:%M%P'), post_path(post) %>
-  <% if post.belongs_to_user?(current_user) %>
-    <%= link_to 'Edit', edit_post_path(post) %>
-  <% end %>
-  <section class="likes">
-  <%= render partial: 'likes/like', locals: { post: post, comment: false } %>
+  <header class="post-profile">
+    <% if post.user.profile.profile_photo.attached? %>
+      <%= image_tag post.user.profile.profile_photo.variant(resize_to_limit: [50, 50]), alt: 'Profile Photo', class: 'profile-photo' %>
+    <% else %>
+      <%= image_tag 'profile/default_photo.png', size: '50x50', alt: 'Profile Photo', class: 'profile-photo' %>
+    <% end %>
+    <h3 class="name"><%= link_to post.user.name, current_user == post.user ? profile_path : profiles_path(id: post.user) %></h3>
+  </header>
+
+  <section class="post-body">
+    <p class="body"><%= post.body %></p>
+  </section>
+
+  <section class="post-likes-and-time">
+    <section class="likes">
+      <%= render partial: 'likes/like', locals: { post: post, comment: false } %>
+    </section>
+
+    <section class="post-time">
+      <%= link_to post.created_at.strftime('%m-%d-%Y %l:%M%P'), post_path(post) %>
+      <% if post.belongs_to_user?(current_user) %>
+        | <%= link_to 'Edit', edit_post_path(post) %>
+      <% end %>
+    </section>
   </section>
 
   <section class="comment-section">
-    <section class="create-comment">
-      <%= render partial: 'comments/create_comment', locals: { post: post }%>
-    </section>
+    <%= render partial: 'comments/create_comment', locals: { post: post }%>
     <section class="comments">
       <%= render partial: 'comments/comments', locals: { post: post } %>
     </section>
