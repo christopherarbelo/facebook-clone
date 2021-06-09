@@ -1,3 +1,26 @@
 // Place all the styles related to the Profiles controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+main.profile {
+  margin: 30px 40px;
+}
+
+section.profile-card {
+  display: flex;
+  align-items: end;
+  border-bottom: 3px double black;
+  padding-bottom: 10px;
+}
+
+section.profile-information {
+  padding-left: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  width: 100%;
+}
+
+section.profile-posts {
+  margin-top: 40px;
+}

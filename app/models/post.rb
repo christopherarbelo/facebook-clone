@@ -9,6 +9,7 @@ class Post < ApplicationRecord
   
   # scopes / helpers
   scope :latest, -> { order(created_at: :desc) }
+  scope :own_posts, ->(user) { where(user_id: user.id).latest }
 
   def self.for_user(current_user)
     users_network_ids = current_user.friends.map { |friend| friend.id }

@@ -4,6 +4,7 @@ class ProfilesController < ApplicationController
   def show
     @user = User.includes(:profile).find(params[:id] || current_user.id)
     @not_current_user_profile = @user.id != current_user.id
+    @posts = Post.includes(comments: [:user]).own_posts(@user)
     if @not_current_user_profile
       @user_relationship = current_user.relationship(@user)
       @user_action = @user_relationship.action_user_id == current_user.id if @user_relationship
