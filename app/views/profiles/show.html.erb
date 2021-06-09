@@ -1,6 +1,9 @@
 <main>
 <section>
   <h2><%= @user.name %></h2>
+  <section class="biography">
+    <p><%= @user.profile.biography %></p>
+  </section>
   <section id="friend-button">
     <% if @not_current_user_profile %>
       <% if !@user_relationship || @user_relationship.status == 1 %>
@@ -14,6 +17,8 @@
         <p>You are friends</p>
         <%= link_to 'Remove friend', remove_friend_path(@user), method: :delete %>
       <% end %>
+    <% else %>
+      <%= link_to 'Edit Profie', edit_profile_path %>
     <% end %>
   </section>
 </section>

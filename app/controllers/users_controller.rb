@@ -10,15 +10,6 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
-  def profile
-    @user = params[:id] ? User.find(params[:id]) : current_user
-    @not_current_user_profile = @user.id != current_user.id
-    if @not_current_user_profile
-      @user_relationship = current_user.relationship(@user)
-      @user_action = @user_relationship.action_user_id == current_user.id
-    end
-  end
-
   def send_friend_request
     handle_relationship(0, 'Friend request sent!')
   end
@@ -48,6 +39,6 @@ class UsersController < ApplicationController
   def handle_relationship(status, message)
     current_user.change_relationship(friend_object, status)
     flash[:notice] = message
-    redirect_to user_profile_path(params[:friend_id])
+    redirect_to profiles_path(params[:friend_id])
   end
 end

@@ -5,15 +5,19 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
          
   # associations
-  has_many :posts
-  has_many :comments
-  has_many :relationships, foreign_key: 'user_one_id'
-  has_many :liked_posts, through: :posts, as: :likable
-  has_many :liked_comments, through: :comments, as: :likable
+  has_many :posts, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :relationships, foreign_key: 'user_one_id', dependent: :destroy
+  has_many :liked_posts, -> { where(likable_type: 'Post') }, class_name: 'Like'
+  has_many :liked_comments, -> { where(likable_type: 'Comment') }, class_name: 'Like'
+  has_one :profile, dependent: :destroy
 
   # validations
   validates :name, presence: true, length: { in: 2..30 }
   validates_associated :posts, :relationships
+
+  # callbacks
+  after_create_commit :make_profile
 
   # scopes / helpers
   def friends
@@ -51,5 +55,9 @@ class User < ApplicationRecord
 
   def ordered_users(other_user)
     id < other_user.id ? [id, other_user.id] : [other_user.id, id]
+  end
+
+  def make_profile
+    self.create_profile
   end
 end

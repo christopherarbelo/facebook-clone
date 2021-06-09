@@ -1,6 +1,6 @@
 <h1>Likes</h1>
 <ul>
 <% @likes.each do |like| %>
-  <li><%= link_to like.user.name, user_profile_path(like.user) %></li>
+  <li><%= link_to like.user.name, profiles_path(like.user) %></li>
 <% end %>
 </ul>

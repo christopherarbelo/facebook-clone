@@ -3,7 +3,7 @@
   <h1><%= pluralize @friends.count, 'friend' %></h1>
   <ul>
   <% @friends.each do |friend| %>
-    <li><%= link_to friend.name, user_profile_path(friend) %></li>
+    <li><%= link_to friend.name, profiles_path(friend) %></li>
   <% end %>
   </ul>
 </section>
@@ -11,7 +11,7 @@
   <h2>Friend requests</h2>
   <ul>
   <% @friend_requests.each do |friend_request| %>
-    <li><%= link_to friend_request.name, user_profile_path(friend_request) %></li>
+    <li><%= link_to friend_request.name, profiles_path(friend_request) %></li>
   <% end %>
   </ul>
 </section>
