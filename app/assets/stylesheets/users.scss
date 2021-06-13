@@ -7,5 +7,32 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+}
+
+section.profile-basic {
+  display: flex;
   align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid black;
+  justify-content: space-between;
+}
+
+section.profile-basic:last-child {
+  border: 0;
+}
+
+section.users-index {
+  width: 60%;
+  margin: 20px auto;
+}
+
+section.user-info-basic {
+  display: flex;
+  align-items: center;
+}
+
+section.user-info-relationship {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
 }

@@ -1,0 +1,6 @@
+<section class="users-index">
+  <h2>All Users</h2>
+  <% @users.each do |user_hash| %>
+    <%= render partial: 'partials/user-card', locals: { user: user_hash[:user], relationship_variables: user_hash[:relationship_variables] } %>
+  <% end %>
+</section>

@@ -1,10 +1,6 @@
 <section class="post">
   <header class="post-profile">
-    <% if post.user.profile.profile_photo.attached? %>
-      <%= image_tag post.user.profile.profile_photo.variant(resize_to_limit: [50, 50]), alt: 'Profile Photo', class: 'profile-photo' %>
-    <% else %>
-      <%= image_tag 'profile/default_photo.png', size: '50x50', alt: 'Profile Photo', class: 'profile-photo' %>
-    <% end %>
+    <%= render partial: 'partials/profile-photo', locals: { user: post.user, resize_array: [50, 50]} %>
     <h3 class="name"><%= link_to post.user.name, current_user == post.user ? profile_path : profiles_path(id: post.user) %></h3>
   </header>
 

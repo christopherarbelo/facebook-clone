@@ -1,5 +1,5 @@
 <section class="profile-basic">
-  <%= image_tag current_user.profile.profile_photo.variant(resize_to_limit: [50, 50]), alt: 'Profile Photo', class: 'profile-photo' %>
+  <%= render partial: 'partials/profile-photo', locals: { user: current_user, resize_array: [50, 50]} %>
   <p><%= link_to current_user.name,  profile_path %></p>
 </section>
 <section class="profile-card-navigation">

@@ -15,8 +15,8 @@
       <h1 id="logo"><%= link_to 'Facebook', root_path %></h1>
       <ul>
         <% if user_signed_in? %>
-        <li><%= link_to 'Friends', users_friends_path %></li>
-        <li><%= link_to 'Messages', root_path %></li>
+        <li><%= link_to 'Friends', friends_path %></li>
+        <li><%= link_to 'Users', users_path %></li>
         <li><%= link_to 'Notifications', root_path %></li>
         <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
         <% end %>

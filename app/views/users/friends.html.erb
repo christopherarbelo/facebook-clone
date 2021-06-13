@@ -1,18 +1,16 @@
 <main>
 <section class="friends-list">
   <h1><%= pluralize @friends.count, 'friend' %></h1>
-  <ul>
-  <% @friends.each do |friend| %>
-    <li><%= link_to friend.name, profiles_path(friend) %></li>
+  <% @friends.each do |user_hash| %>
+  <%= render partial: 'partials/user-card', locals: { user: user_hash[:user], 
+      relationship_variables: user_hash[:relationship_variables] } %>
   <% end %>
-  </ul>
 </section>
 <section class="friend-requests">
   <h2>Friend requests</h2>
-  <ul>
-  <% @friend_requests.each do |friend_request| %>
-    <li><%= link_to friend_request.name, profiles_path(friend_request) %></li>
+  <% @friend_requests.each do |user_hash| %>
+  <%= render partial: 'partials/user-card', locals: { user: user_hash[:user], 
+      relationship_variables: user_hash[:relationship_variables] } %>
   <% end %>
-  </ul>
 </section>
 </main>

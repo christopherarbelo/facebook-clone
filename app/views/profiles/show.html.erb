@@ -1,10 +1,6 @@
 <main class="profile">
   <section class="profile-card">
-    <% if @user.profile.profile_photo.attached? %>
-      <%= image_tag @user.profile.profile_photo.variant(resize_to_limit: [150, 150]), alt: 'Profile Photo', class: 'profile-photo' %>
-    <% else %>
-      <%= image_tag 'profile/default_photo.png', size: '150x150', alt: 'Profile Photo', class: 'profile-photo' %>
-    <% end %>
+    <%= render partial: 'partials/profile-photo', locals: { user: @user, resize_array: [150, 150]} %>
     <section class="profile-information">
       <section class="profile-text">
         <h2><%= @user.name %></h2>

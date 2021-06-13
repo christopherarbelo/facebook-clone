@@ -16,8 +16,8 @@ Rails.application.routes.draw do
   get 'profiles/:id', to: 'profiles#show', as: :profiles
 
   # users controller
-  get 'users/friends'
   get 'friends', to: 'users#friends'
+  get 'users/index', to: 'users#index', as: :users
   match 'send_friend_request/:friend_id', to: 'users#send_friend_request', as: :send_friend_request, via: :post
   match 'accept_friend_request/:friend_id', to: 'users#accept_friend_request', as: :accept_friend_request, via: :post
   match 'remove_friend/:friend_id', to: 'users#remove_friend', as: :remove_friend, via: :delete

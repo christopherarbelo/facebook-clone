@@ -2,12 +2,12 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
   
   def friends
-    @friends = current_user.friends.all
-    @friend_requests = current_user.friend_requests
+    @friends = current_user.friends.map { |friend| user_relationship_hash friend }
+    @friend_requests = current_user.friend_requests.map { |friend_request| user_relationship_hash friend_request }
   end
 
   def index
-    @users = User.all
+    @users = User.all.map { |user| user_relationship_hash user }
   end
 
   def send_friend_request
@@ -40,5 +40,24 @@ class UsersController < ApplicationController
     current_user.change_relationship(friend_object, status)
     flash[:notice] = message
     redirect_to profiles_path(params[:friend_id])
+  end
+
+  def user_relationship_hash(user)
+    not_current_user_profile = user.id != current_user.id
+    relationship_variables = { not_current_user_profile: not_current_user_profile }
+    returning_hash = { user: user }
+    
+    if not_current_user_profile
+      user_relationship = current_user.relationship(user)
+      relationship_variables[:user_relationship] = user_relationship
+      user_action = user_relationship ? user_relationship.action_user_id == current_user.id : nil
+      relationship_variables[:user_action] = user_action
+    else
+      relationship_variables[:user_relationship] = nil
+      relationship_variables[:user_action] = nil
+    end
+
+    returning_hash[:relationship_variables] = relationship_variables
+    returning_hash
   end
 end

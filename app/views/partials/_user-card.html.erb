@@ -1,0 +1,12 @@
+<section class="profile-basic">
+  <section class="user-info-basic">
+    <%= render partial: 'partials/profile-photo', locals: { user: user, resize_array: [50, 50] }%>
+    <p><%= link_to user.name,  profiles_path(user) %></p>
+  </section>
+  <section class="user-info-relationship">
+    <%= render partial: 'partials/friend-button', locals: { user: user, 
+        not_current_user_profile: relationship_variables[:not_current_user_profile], 
+        user_relationship: relationship_variables[:user_relationship], 
+        user_action: relationship_variables[:user_action] } %>
+  </section>
+</section>
