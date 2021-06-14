@@ -13,18 +13,46 @@
   <body>
     <nav id="navigation-bar">
       <h1 id="logo"><%= link_to 'Facebook', root_path %></h1>
+      <% if user_signed_in? %>
       <ul>
-        <% if user_signed_in? %>
         <li><%= link_to 'Friends', friends_path %></li>
         <li><%= link_to 'Users', users_path %></li>
-        <li><%= link_to 'Notifications', root_path %></li>
+        <li id="notifications-link">
+          <p id="notification-text">
+          Notifications
+          <% if current_user.notifications.any? %>
+            <span class="notification-badge"><%= current_user.notifications.count %></span>
+          <% end %>
+          </p>        
+        </li>
         <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
-        <% end %>
       </ul>
+      <section id="notification-panel">
+        <% if current_user.notifications.any? %>
+          <ul>
+          <% current_user.notifications.each do |notification| %>
+            <% case notification.kind %>
+            <% when 0 %>
+              <li><%= notification.action_user.name %> sent you a friend request! | 
+              <%= link_to 'Accept', accept_friend_request_path(notification.action_user), method: :post %> | 
+              <%= link_to 'Decline', reject_friend_request_path(notification.action_user), method: :post %>
+              </li>
+            <% when 1 %>
+              <li><%= link_to notification.action_user.name, profiles_path(notification.action_user) %> accepted your friend request! </li>
+            <% end %>
+            |<%= link_to 'Remove notification', notification_path(notification), method: :delete %>
+          <% end %>
+          </ul>
+        <% else %>
+          There are no notifications :(
+        <% end %>
+      </section>
+      <% end %>
     </nav>
     <% flash.each do |name, message| %>
       <%= content_tag :section, message, class: "#{name} flash" %>
     <% end %>
     <%= yield %>
+    <%= javascript_pack_tag 'custom-application' %>
   </body>
 </html>

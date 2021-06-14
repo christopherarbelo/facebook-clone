@@ -13,3 +13,11 @@ The relationship model keeps track of relationships (i.e. friendships) between u
 |1|declined friend request|
 |2|users are friends|
 |3|users are blocked from being friends|
+
+### Notification
+The notification model keeps track of every users set of notifications. The type column denotes whether the notification is for a friend request, liked post or liked comment.
+
+|Type code | Description
+--- | --- |
+|0|User sent friend request|
+|1|User accepted friend request|

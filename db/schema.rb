@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_08_151200) do
+ActiveRecord::Schema.define(version: 2021_06_14_165423) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,18 @@ ActiveRecord::Schema.define(version: 2021_06_08_151200) do
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "action_user_id", null: false
+    t.integer "kind", null: false
+    t.bigint "kind_id"
+    t.index ["action_user_id"], name: "index_notifications_on_action_user_id"
+    t.index ["user_id", "action_user_id", "kind", "kind_id"], name: "index_notifications_on_user_id__action_user_id___type___type_id", unique: true
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", precision: 6, null: false
@@ -111,6 +123,8 @@ ActiveRecord::Schema.define(version: 2021_06_08_151200) do
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
   add_foreign_key "likes", "users"
+  add_foreign_key "notifications", "users"
+  add_foreign_key "notifications", "users", column: "action_user_id"
   add_foreign_key "posts", "users"
   add_foreign_key "profiles", "users"
   add_foreign_key "relationships", "users", column: "action_user_id"
