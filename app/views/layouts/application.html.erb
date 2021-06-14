@@ -33,7 +33,7 @@
           <% current_user.notifications.each do |notification| %>
             <% case notification.kind %>
             <% when 0 %>
-              <li><%= notification.action_user.name %> sent you a friend request! | 
+              <li><%= link_to notification.action_user.name, profiles_path(notification.action_user) %> sent you a friend request! | 
               <%= link_to 'Accept', accept_friend_request_path(notification.action_user), method: :post %> | 
               <%= link_to 'Decline', reject_friend_request_path(notification.action_user), method: :post %>
               </li>

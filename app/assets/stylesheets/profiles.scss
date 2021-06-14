@@ -25,3 +25,13 @@ section.profile-posts {
   width: 42%;
   margin: 40px auto 40px auto;
 }
+
+section.profile-posts .info-private {
+  text-align: center;
+}
+
+section#friend-button {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
