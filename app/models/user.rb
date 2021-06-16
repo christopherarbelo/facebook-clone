@@ -3,6 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  devise :omniauthable, omniauth_providers: %i[discord]
          
   # associations
   has_many :notifications, -> { order(created_at: :desc) }, dependent: :destroy
@@ -25,7 +26,36 @@ class User < ApplicationRecord
   def relationships
     Relationship.where(user_one_id: id).or(Relationship.where(user_two_id: id))
   end
+
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.name = auth.info.name
+      user.email = auth.info.email
+    end
+  end
+
+  def self.new_with_session(params, session)
+    super.tap do |user|
+      if data = session["devise.discord_data"] && session["devise.discord_data"]['info']
+        user.name = data["name"] if user.name.blank?
+        user.email = data["email"] if user.email.blank?
+        user.valid?
+      end
+    end
+  end
+
+  def password_required?
+    super && provider.blank?
+  end
   
+  def update_with_password(params, *options)
+    if encrypted_password.blank?
+      update_attributes(params, *options)
+    else
+      super
+    end
+  end
+
   def friends
     friends_ids = Relationship.where(user_one_id: id, status: 2).pluck(:user_two_id)
     friends_ids += Relationship.where(user_two_id: id, status: 2).pluck(:user_one_id)
@@ -54,7 +84,8 @@ class User < ApplicationRecord
   end
 
   def friends?(other_user)
-    relationship(other_user).status == 2
+    relation = relationship(other_user)
+    !relation.nil? && relation.status = 2
   end
 
   private
