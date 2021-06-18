@@ -5,7 +5,9 @@
   
   <section id="posts">
     <%= render partial: 'post-form', locals: { post: @post } %>
-    
+    <section id="new-post" style="display: none;">
+      <%= link_to 'View new posts', root_path %>
+    </section>
     <section id="post-feed">
     <% if @posts.any? %>
       <% @posts.each do |post| %>
