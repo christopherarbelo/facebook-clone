@@ -85,7 +85,7 @@ class User < ApplicationRecord
 
   def friends?(other_user)
     relation = relationship(other_user)
-    !relation.nil? && relation.status = 2
+    !relation.nil? && relation.status == 2
   end
 
   private
