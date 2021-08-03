@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   devise :omniauthable, omniauth_providers: %i[discord]
-         
+
   # associations
   has_many :notifications, -> { order(created_at: :desc) }, dependent: :destroy
   has_many :posts, dependent: :destroy
@@ -21,6 +21,7 @@ class User < ApplicationRecord
   # callbacks
   after_create_commit :make_profile
   before_destroy :destroy_relationships
+  before_destroy :destroy_notifications, prepend: true
 
   # scopes / helpers
   def relationships
@@ -36,9 +37,9 @@ class User < ApplicationRecord
 
   def self.new_with_session(params, session)
     super.tap do |user|
-      if data = session["devise.discord_data"] && session["devise.discord_data"]['info']
-        user.name = data["name"] if user.name.blank?
-        user.email = data["email"] if user.email.blank?
+      if (data = session['devise.discord_data'] && session['devise.discord_data']['info'])
+        user.name = data['name'] if user.name.blank?
+        user.email = data['email'] if user.email.blank?
         user.valid?
       end
     end
@@ -47,7 +48,7 @@ class User < ApplicationRecord
   def password_required?
     super && provider.blank?
   end
-  
+
   def update_with_password(params, *options)
     if encrypted_password.blank?
       update_attributes(params, *options)
@@ -61,7 +62,7 @@ class User < ApplicationRecord
     friends_ids += Relationship.where(user_two_id: id, status: 2).pluck(:user_one_id)
     User.where(id: friends_ids)
   end
-  
+
   def friend_requests
     friends_ids = Relationship.where(user_one_id: id, status: 0).where.not(action_user_id: id).pluck(:user_two_id)
     friends_ids += Relationship.where(user_two_id: id, status: 0).where.not(action_user_id: id).pluck(:user_one_id)
@@ -73,7 +74,7 @@ class User < ApplicationRecord
     users_relationship = Relationship.find_by(user_one_id: user_one, user_two_id: user_two)
     if users_relationship
       users_relationship.update(status: status, action_user_id: id)
-    else    
+    else
       Relationship.create(user_one_id: user_one, user_two_id: user_two, status: status, action_user_id: id)
     end
   end
@@ -95,10 +96,14 @@ class User < ApplicationRecord
   end
 
   def make_profile
-    self.create_profile
+    create_profile
   end
 
   def destroy_relationships
     relationships.destroy_all
+  end
+
+  def destroy_notifications
+    Notification.where(user_id: id).or(Notification.where(action_user_id: id)).destroy_all
   end
 end
