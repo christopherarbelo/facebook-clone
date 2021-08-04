@@ -1,5 +1,5 @@
 <main id="feed" class="feed">
-  <section id="profile-card" class="feed__profile d-flex col-lg-2 flex-column flex-shrink-0 p-3 text-white bg-dark">
+  <section id="profile-card" class="feed__profile d-flex col-lg-2 col-md-3 flex-column flex-shrink-0 p-3 text-white bg-dark">
     <%= render partial: 'profile-card' %>
   </section>
   
@@ -8,7 +8,7 @@
     <section id="new-post" style="display: none;">
       <%= link_to 'View new posts', root_path %>
     </section>
-    <section id="post-feed" class="mt-4 feed__main__postings">
+    <section id="post-feed" class="my-4 feed__main__postings">
     <% if @posts.any? %>
       <% @posts.each do |post| %>
       <%= render partial: 'post', locals: { post: post } %>

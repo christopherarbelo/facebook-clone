@@ -12,7 +12,7 @@
 
   <body>
     <%# NAVIGATION BAR %>
-    <nav id="navigation-bar" class="navbar navbar-expand-sm navbar-dark bg-dark shadow">
+    <nav id="navigation-bar" class="fixed-top navbar navbar-expand-sm navbar-dark bg-dark shadow">
       <div class="container-fluid">
         <%= link_to 'Facebook', root_path, class: "navbar-brand navbar_link" %>
         <%# Toggler %>
@@ -23,7 +23,7 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
           <ul class="navbar-nav navbar_links">
             <% if user_signed_in? %>
-            <li class="nav-item"><%= link_to 'Home', root_path, class: "nav-link active navbar_link", "aria-current": "page" %></li>
+            <li class="nav-item"><%= link_to 'Home', root_path, class: "nav-link navbar_link", "aria-current": "page" %></li>
             <li class="nav-item"><%= link_to 'Friends', friends_path, class: "nav-link navbar_link", "aria-current": "page" %></li>
             <li class="nav-item"><%= link_to 'Users', users_path, class: "nav-link navbar_link" %></li>
             <%# Notification button %>

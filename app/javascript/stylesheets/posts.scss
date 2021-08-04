@@ -5,6 +5,10 @@
   height: calc(100vh - 56px);
 
   &__profile {
+    position: fixed;
+    margin-top: 56px;
+    height: calc(100vh - 56px);
+
     a {
       color: white;
     }
@@ -15,6 +19,11 @@
   }
 
   &__main {
+    margin-top: 56px;
+    @include media-breakpoint-up(md) {
+      margin-left: 35% !important;
+    }
+
     .text-area {
       resize: none;
     }
