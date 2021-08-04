@@ -1,0 +1,52 @@
+@use "custom" as *;
+
+html {
+  font-size: 16px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.navbar {
+  background-color: $primary;
+
+  &_dropdown {
+    min-width: 35rem;
+    padding: 1rem;
+  }
+
+  &_notification__button {
+    background: 0;
+    border: 0;
+
+    &:hover {
+      background: 0;
+    }
+  }
+
+  &_link {
+    color: white;
+  }
+
+  &_links {
+    align-items: center;
+  }
+}
+
+section.flash {
+  text-align: center;
+  padding: 20px;
+}
+
+section.flash.alert {
+  background-color: red;
+}
+
+section.flash.notice {
+  background-color: rgb(87, 255, 115);
+}
+
+section.flash.error {
+  background-color: red;
+}

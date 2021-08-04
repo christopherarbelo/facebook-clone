@@ -6,49 +6,61 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <nav id="navigation-bar">
-      <h1 id="logo"><%= link_to 'Facebook', root_path %></h1>
-      <% if user_signed_in? %>
-      <ul>
-        <li><%= link_to 'Friends', friends_path %></li>
-        <li><%= link_to 'Users', users_path %></li>
-        <li id="notifications-link">
-          <p id="notification-text">
-          Notifications
-          <% if current_user.notifications.any? %>
-            <span class="notification-badge"><%= current_user.notifications.count %></span>
-          <% end %>
-          </p>        
-        </li>
-        <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
-      </ul>
-      <section id="notification-panel">
-        <% if current_user.notifications.any? %>
-          <ul>
-          <% current_user.notifications.each do |notification| %>
-            <% case notification.kind %>
-            <% when 0 %>
-              <li><%= link_to notification.action_user.name, profiles_path(notification.action_user) %> sent you a friend request! | 
-              <%= link_to 'Accept', accept_friend_request_path(notification.action_user), method: :post %> | 
-              <%= link_to 'Decline', reject_friend_request_path(notification.action_user), method: :post %>
-              </li>
-            <% when 1 %>
-              <li><%= link_to notification.action_user.name, profiles_path(notification.action_user) %> accepted your friend request! </li>
+    <%# NAVIGATION BAR %>
+    <nav id="navigation-bar" class="navbar navbar-expand-sm navbar-dark bg-primary shadow">
+      <div class="container-fluid">
+        <%= link_to 'Facebook', root_path, class: "navbar-brand navbar_link" %>
+        <%# Toggler %>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <%# Other links %>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+          <ul class="navbar-nav navbar_links">
+            <% if user_signed_in? %>
+            <li class="nav-item"><%= link_to 'Home', root_path, class: "nav-link active navbar_link", "aria-current": "page" %></li>
+            <li class="nav-item"><%= link_to 'Friends', friends_path, class: "nav-link navbar_link", "aria-current": "page" %></li>
+            <li class="nav-item"><%= link_to 'Users', users_path, class: "nav-link navbar_link" %></li>
+            <%# Notification button %>
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle navbar_notification__button" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-bell"></i>
+                <% if current_user.notifications.any? %>
+                  <span class="notification-badge"><%= current_user.notifications.count %></span>
+                <% end %>
+              </button>
+              <%# user notifications %>
+              <ul class="dropdown-menu navbar_dropdown dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                <% unless current_user.notifications.any? %>
+                <li>All caught up. There are no notifications.</li>
+                <% else %>
+                  <% current_user.notifications.each do |notification| %>
+                    <% case notification.kind %>
+                    <% when 0 %>
+                      <li><%= link_to notification.action_user.name, profiles_path(notification.action_user) %> sent you a friend request! | 
+                      <%= link_to 'Accept', accept_friend_request_path(notification.action_user), method: :post %> | 
+                      <%= link_to 'Decline', reject_friend_request_path(notification.action_user), method: :post %>
+                      |<%= link_to 'Remove', notification_path(notification), method: :delete %>
+                      </li>
+                    <% when 1 %>
+                      <li><%= link_to notification.action_user.name, profiles_path(notification.action_user) %> accepted your friend request! 
+                      | <%= link_to 'Remove', notification_path(notification), method: :delete %>
+                      </li>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              </ul>
+            </div>
+            <li class="nav-item"><%= link_to 'Sign Out', destroy_user_session_path, method: :delete, class: "nav-link navbar_link" %></li>
             <% end %>
-            |<%= link_to 'Remove notification', notification_path(notification), method: :delete %>
-          <% end %>
           </ul>
-        <% else %>
-          There are no notifications :(
-        <% end %>
-      </section>
-      <%= javascript_pack_tag 'custom-application' %>
-      <% end %>
+        </div>
+      </div>
     </nav>
     <% flash.each do |name, message| %>
       <%= content_tag :section, message, class: "#{name} flash" %>

@@ -1,1 +1,0 @@
-import "../application/application.js"
