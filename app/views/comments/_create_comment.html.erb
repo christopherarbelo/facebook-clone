@@ -1,4 +1,8 @@
-<%= form_with model: [post, post.comments.new], class: 'comment-form' do |form| %>
-  <%= form.text_field :message, placeholder: 'Write a comment' %>
-  <%= form.submit 'Submit' %>
+<%= form_with model: [post, post.comments.new], class: 'comment-form row' do |form| %>
+  <div class="col">
+  <%= form.text_field :message, placeholder: 'Write a comment', class: "form-control" %>
+  </div>
+  <div class="col flex-grow-0">
+  <%= form.submit 'Submit', class: "btn btn-primary" %>
+  </div>
 <% end %>

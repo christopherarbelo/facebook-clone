@@ -3,12 +3,12 @@
     <%= render partial: 'profile-card' %>
   </section>
   
-  <section id="posts" class="col-9 feed_main">
+  <section id="posts" class="feed__main pt-4 col-lg-5 col-md-6 col-9 mx-auto">
     <%= render partial: 'post-form', locals: { post: @post } %>
     <section id="new-post" style="display: none;">
       <%= link_to 'View new posts', root_path %>
     </section>
-    <section id="post-feed" class="feed_main__postings">
+    <section id="post-feed" class="mt-4 feed__main__postings">
     <% if @posts.any? %>
       <% @posts.each do |post| %>
       <%= render partial: 'post', locals: { post: post } %>

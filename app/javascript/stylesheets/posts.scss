@@ -14,94 +14,9 @@
     }
   }
 
-  &_main {
-    overflow: scroll;
+  &__main {
+    .text-area {
+      resize: none;
+    }
   }
-}
-
-#posts {
-  display: flex;
-  flex-direction: column;
-  width: 60%;
-  align-items: center;
-  margin: 0 auto;
-  padding-top: 20px;
-}
-
-#post-feed {
-  display: flex;
-  flex-direction: column;
-  width: 70%;
-  margin-top: 20px;
-}
-
-.post {
-  border: 1px solid black;
-  border-radius: 4px;
-  margin-bottom: 40px;
-  padding: 15px;
-  background: white;
-}
-
-.post-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: 1px solid black;
-  width: 70%;
-}
-
-.text-area {
-  resize: none;
-}
-
-section.comment-section {
-  margin: 0 -15px -15px -15px;
-  padding-top: 15px;
-  border-top: 1px solid black;
-}
-
-section.comment {
-  border: 1px solid black;
-  border-radius: 10px;
-  padding: 10px;
-  margin: 20px;
-}
-
-.comment-header {
-  display: flex;
-  justify-content: space-between;
-}
-
-header.post-profile {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-header.post-profile .name {
-  padding-left: 10px;
-}
-
-section.post-body {
-  margin: 30px 0;
-}
-
-section.post-likes-and-time {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px;
-}
-
-form.comment-form {
-  margin: 0 20px 15px 20px;
-}
-
-section.post-single {
-  margin-top: 25px; 
-}
-
-section.post-single .post {
-  width: 42%;
-  margin: auto;
 }

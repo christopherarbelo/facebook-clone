@@ -1,14 +1,14 @@
-<section class="post">
-  <header class="post-profile">
+<section class="post mt-5 p-3 shadow card">
+  <header class="post-profile d-flex align-items-center mb-2">
     <%= render partial: 'partials/profile-photo', locals: { user: post.user, resize_array: [50, 50]} %>
-    <h3 class="name"><%= link_to post.user.name, current_user == post.user ? profile_path : profiles_path(id: post.user) %></h3>
+    <h3 class="name ms-3 mb-0"><%= link_to post.user.name, current_user == post.user ? profile_path : profiles_path(id: post.user) %></h3>
   </header>
 
-  <section class="post-body">
+  <section class="post-body my-2">
     <p class="body"><%= post.body %></p>
   </section>
 
-  <section class="post-likes-and-time">
+  <section class="post-likes-and-time d-flex justify-content-between mb-3">
     <section class="likes">
       <%= render partial: 'likes/like', locals: { post: post, comment: false } %>
     </section>
@@ -20,7 +20,7 @@
       <% end %>
     </section>
   </section>
-
+  <hr class="horizontal-line">
   <section class="comment-section">
     <%= render partial: 'comments/create_comment', locals: { post: post }%>
     <section class="comments">

@@ -1,5 +1,6 @@
-<%= form_with model: post, class: "post-form" do |form| %>
-  <%= form.label :body, 'Post' %><br>
-  <%= form.text_area :body, size: "60x7", class: "text-area" %><br>
-  <%= form.submit %>
+<%= form_with model: post, class: "post-form card" do |form| %>
+  <%= form.text_area :body, size: "60x7", class: "text-area form-control", placeholder: "Write a post..." %>
+  <div class="card-body">
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
 <% end %>

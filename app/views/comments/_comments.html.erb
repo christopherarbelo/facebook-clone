@@ -1,7 +1,7 @@
 <% post.comments.each do |comment| %>
 <% if comment.valid? %>
-  <section class="comment">
-    <header class="comment-header">
+  <section class="comment border border-1 p-3 m-3 rounded">
+    <header class="comment-header d-flex justify-content-between">
       <section class="comment-name">
       <%= comment.user.name %>
       </section>
