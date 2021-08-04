@@ -1,10 +1,22 @@
-// Place all the styles related to the Posts controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+@use 'bootstrap' as *;
 
-#main-content {
+.feed {
   display: flex;
-  align-items: flex-start;
+  height: calc(100vh - 56px);
+
+  &__profile {
+    a {
+      color: white;
+    }
+
+    @include media-breakpoint-down(md) {
+      display: none !important;
+    }
+  }
+
+  &_main {
+    overflow: scroll;
+  }
 }
 
 #posts {
@@ -14,22 +26,6 @@
   align-items: center;
   margin: 0 auto;
   padding-top: 20px;
-}
-
-#profile-card {
-  padding: 20px 10px;
-  background: white;
-  border: 1px solid black;
-}
-
-#profile-card .profile-basic {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.profile-basic p {
-  padding-left: 10px;
 }
 
 #post-feed {

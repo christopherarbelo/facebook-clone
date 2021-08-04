@@ -1,5 +1,5 @@
 <% if user.profile.profile_photo.attached? %>
-  <%= image_tag user.profile.profile_photo.variant(resize_to_limit: resize_array), alt: 'Profile Photo', class: 'profile-photo' %>
+  <%= image_tag user.profile.profile_photo.variant(resize_to_limit: resize_array), alt: 'Profile Photo', class: 'profile-photo rounded-circle' %>
 <% else %>
-  <%= image_tag 'profile/default_photo.png', size: "#{resize_array.first}x#{resize_array.last}", alt: 'Profile Photo', class: 'profile-photo' %>
+  <%= image_tag 'profile/default_photo.png', size: "#{resize_array.first}x#{resize_array.last}", alt: 'Profile Photo', class: 'profile-photo rounded-circle' %>
 <% end %>

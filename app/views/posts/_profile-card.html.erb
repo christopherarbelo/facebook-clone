@@ -1,8 +1,20 @@
-<section class="profile-basic">
+<section class="d-flex align-items-center">
   <%= render partial: 'partials/profile-photo', locals: { user: current_user, resize_array: [50, 50]} %>
-  <p><%= link_to current_user.name,  profile_path %></p>
+  <%= link_to current_user.name,  profile_path, class:"ms-3" %>
 </section>
-<section class="profile-card-navigation">
-  <%= link_to 'Profile', profile_path %><br>
-  <%= link_to 'Friends', friends_path %>
-</section>
+<hr>
+<ul class="profile-card-navigation nav nav-pills flex-column mb-auto">
+  <%= link_to profile_path, class: "nav-link" do %>
+    <i class="fas fa-address-card"></i>
+    Profile
+  <% end %>
+  <br>
+  <%= link_to friends_path, class: "nav-link" do %>
+    <i class="fas fa-user-friends"></i>
+    Friends
+  <% end %>
+  <%= link_to users_path, class: "nav-link" do %>
+    <i class="fas fa-users"></i>
+    Users
+  <% end %>
+</ul>
