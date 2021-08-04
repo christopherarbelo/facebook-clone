@@ -1,31 +1,23 @@
 @use 'bootstrap' as *;
 
-.feed {
-  display: flex;
+.sidebar {
+  position: fixed;
   height: calc(100vh - 56px);
+  margin-top: -18px; // brings the sidebar back up
+  a {
+    color: white;
+  }
+  @include media-breakpoint-down(md) {
+    display: none !important;
+  }
+}
 
-  &__profile {
-    position: fixed;
-    margin-top: 56px;
-    height: calc(100vh - 56px);
-
-    a {
-      color: white;
-    }
-
-    @include media-breakpoint-down(md) {
-      display: none !important;
-    }
+.feed {
+  @include media-breakpoint-up(md) {
+    margin-left: 35% !important;
   }
 
-  &__main {
-    margin-top: 56px;
-    @include media-breakpoint-up(md) {
-      margin-left: 35% !important;
-    }
-
-    .text-area {
-      resize: none;
-    }
+  .text-area {
+    resize: none;
   }
 }
