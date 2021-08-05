@@ -1,38 +1,13 @@
-// Place all the styles related to the Users controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+.user_info {
+  &_basic {
+    flex: 2 1 auto;
+  }
 
-.friends-list, .friend-requests {
-  width: 60%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-}
-
-section.profile-basic {
-  display: flex;
-  align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px solid black;
-  justify-content: space-between;
-}
-
-section.profile-basic:last-child {
-  border: 0;
-}
-
-section.users-index {
-  width: 60%;
-  margin: 20px auto;
-}
-
-section.user-info-basic {
-  display: flex;
-  align-items: center;
-}
-
-section.user-info-relationship {
-  display: flex;
-  flex-direction: column;
-  align-items: end;
+  &_relationship {
+    flex: 1 1 auto;
+    a,
+    p {
+      text-align: end;
+    }
+  }
 }

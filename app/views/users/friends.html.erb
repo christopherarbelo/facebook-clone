@@ -1,13 +1,15 @@
-<main>
+<main class="col-9 col-md-8 col-lg-6 mx-auto">
 <section class="friends-list">
-  <h1><%= pluralize @friends.count, 'friend' %></h1>
+  <h2 class="mb-3"><%= pluralize @friends.count, 'friend' %></h2>
+  <ul class="list-group">
   <% @friends.each do |user_hash| %>
   <%= render partial: 'partials/user-card', locals: { user: user_hash[:user], 
       relationship_variables: user_hash[:relationship_variables] } %>
   <% end %>
+  </li>
 </section>
-<section class="friend-requests">
-  <h2>Friend requests</h2>
+<section class="friend-requests mt-4">
+  <h2 class="mb-3">Friend requests</h2>
   <% @friend_requests.each do |user_hash| %>
   <%= render partial: 'partials/user-card', locals: { user: user_hash[:user], 
       relationship_variables: user_hash[:relationship_variables] } %>
