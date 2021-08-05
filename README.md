@@ -1,6 +1,19 @@
 # Facebook - Rails Final Project
 
-A facebook like clone using Rails framework. Project from [the Odin Project](https://www.theodinproject.com/paths/full-stack-ruby-on-rails/courses/ruby-on-rails/lessons/final-project)
+This project aims to mimic the main features of a social media web app like facebook. Users have their own profile where they can customize their own biography as well as profile image. Users can create posts, comment on posts and like posts or comments. Users can become friends (as well as unfriend) and can only see posts of others that they are friends with.
+
+Project idea from [the Odin Project](https://www.theodinproject.com/paths/full-stack-ruby-on-rails/courses/ruby-on-rails/lessons/final-project)
+
+## Screenshots
+
+### Main page
+![Main page](readme_images/sample_3.jpeg "Main page")
+
+### Users page
+![Users page](readme_images/sample_2.jpeg "Users page")
+
+### Friends page
+![Friends page](readme_images/sample_1.jpeg "Friends page")
 
 ## Data Model
 ### Relationship
