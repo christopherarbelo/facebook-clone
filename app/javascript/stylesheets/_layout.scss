@@ -38,19 +38,20 @@ a {
   }
 }
 
-section.flash {
-  text-align: center;
-  padding: 20px;
-}
+// Flash messages
+.toast {
+  margin-top: 66px;
+  z-index: 2;
 
-section.flash.alert {
-  background-color: red;
-}
+  &__alert {
+    background: $base-red;
+  }
 
-section.flash.notice {
-  background-color: rgb(87, 255, 115);
-}
+  &__notice {
+    background: blue;
+  }
 
-section.flash.error {
-  background-color: red;
+  &__error {
+    background: $crimson-red;
+  }
 }
